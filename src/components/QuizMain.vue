@@ -1,49 +1,47 @@
 <template>
   <div class="quiz-container">
-    <div class="chinese-word">
-      <h1>{{ currentWord.chinese }}</h1>
-      <p class="pinyin">{{ currentWord.pinyin }}</p>
-    </div>
-    <div class="korean-options">
-      <button
-        v-for="option in currentOptions"
-        :key="option"
-        @click="checkAnswer(option)"
-        class="option-btn"
-        :class="{
-          correct: selectedAnswer === option && isCorrect,
-          wrong: selectedAnswer === option && !isCorrect,
-        }"
-        :disabled="isCorrect"
-      >
-        {{ option }}
-      </button>
-    </div>
+    <template v-if="loading">
+      <div class="loading-spinner">Loading...</div>
+    </template>
+    <template v-else>
+      <div class="chinese-word">
+        <h1>{{ currentWord.chinese }}</h1>
+        <p class="pinyin">{{ currentWord.pinyin }}</p>
+      </div>
+      <div class="korean-options">
+        <button
+          v-for="option in currentOptions"
+          :key="option"
+          @click="checkAnswer(option)"
+          class="option-btn"
+          :class="{
+            correct: selectedAnswer === option && isCorrect,
+            wrong: selectedAnswer === option && !isCorrect,
+          }"
+          :disabled="isCorrect"
+        >
+          {{ option }}
+        </button>
+      </div>
+    </template>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useWordStore } from "../stores/wordStore";
 
 const store = useWordStore();
 const selectedAnswer = ref("");
 const isCorrect = ref(false);
+const loading = ref(true);
 
 const currentWord = computed(() => store.currentWord);
 const currentOptions = computed(() => {
-  const options = [currentWord.value.korean];
-  const remainingWords = store.wordList.filter(
-    (_, index) => index !== store.currentIndex
-  );
+  if (!currentWord.value || !store.wordList.length) return [];
 
-  for (let i = 0; i < 3; i++) {
-    const randomIndex = Math.floor(Math.random() * remainingWords.length);
-    options.push(remainingWords[randomIndex].korean);
-    remainingWords.splice(randomIndex, 1);
-  }
-
-  return options.sort(() => Math.random() - 0.5);
+  // API에서 받은 options 배열을 직접 사용
+  return currentWord.value.options;
 });
 
 const checkAnswer = (selected) => {
@@ -58,19 +56,37 @@ const checkAnswer = (selected) => {
     }, 200);
   }
 };
+
+onMounted(async () => {
+  await store.fetchWords();
+  loading.value = false;
+});
 </script>
 
 <style scoped>
-/* 기존 스타일을 여기에 추가하세요 */
 .quiz-container {
   width: 100%;
-  height: 100%;
+  height: 100vh; /* 전체 높이로 수정 */
   max-width: 600px;
+  margin: 0 auto; /* 중앙 정렬 */
   display: flex;
   flex-direction: column;
   padding: 20px;
   box-sizing: border-box;
   gap: 20px;
+}
+
+.loading-spinner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute; /* 절대 위치로 변경 */
+  top: 0;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.9); /* 배경 약간 투명하게 */
+  z-index: 1000; /* 다른 요소들 위에 표시 */
 }
 
 .chinese-word {

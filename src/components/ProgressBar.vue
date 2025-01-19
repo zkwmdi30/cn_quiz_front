@@ -11,9 +11,10 @@ import { computed } from "vue";
 
 const store = useWordStore();
 const progressWidth = computed(() => {
-  return store.wordList.value && store.wordList.value.length > 0
-    ? `${((store.currentIndex.value + 1) / store.wordList.value.length) * 100}%`
-    : "0%"; // wordList가 비어있거나 undefined일 경우 0%로 설정
+  const { wordList, currentIndex } = store;
+  return wordList.length > 0
+    ? `${((currentIndex + 1) / wordList.length) * 100}%`
+    : "0%";
 });
 </script>
 

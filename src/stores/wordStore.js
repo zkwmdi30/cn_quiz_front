@@ -1,20 +1,30 @@
 import { defineStore } from "pinia";
 import { ref, computed } from "vue";
+import axios from "axios";
 
 export const useWordStore = defineStore("word", () => {
-  const wordList = ref([
-    { chinese: "你好", korean: "안녕하세요", pinyin: "nǐ hǎo" },
-    { chinese: "谢谢", korean: "감사합니다", pinyin: "xiè xie" },
-    { chinese: "再见", korean: "안녕히 가세요", pinyin: "zài jiàn" },
-    { chinese: "对不起", korean: "죄송합니다", pinyin: "duì bù qǐ" },
-    { chinese: "没关系", korean: "괜찮습니다", pinyin: "méi guān xi" },
-    { chinese: "我爱你", korean: "사랑해요", pinyin: "wǒ ài nǐ" },
-    { chinese: "好的", korean: "좋아요", pinyin: "hǎo de" },
-    { chinese: "请问", korean: "실례합니다", pinyin: "qǐng wèn" },
-  ]);
-
+  const wordList = ref([]);
   const currentIndex = ref(0);
   const currentWord = computed(() => wordList.value[currentIndex.value]);
 
-  return { wordList, currentIndex, currentWord };
+  const fetchWords = async () => {
+    try {
+      const response = await axios.get(
+        "http://192.168.68.129:8080/api/v1/getChineseWord"
+      );
+      wordList.value = response.data.map((item) => ({
+        chinese: item.question,
+        korean: item.answer,
+        pinyin: item.pinyin,
+        options: item.options,
+      }));
+    } catch (error) {
+      console.error("Error fetching words:", error);
+    }
+  };
+
+  // Fetch words when the store is initialized
+  // fetchWords();
+
+  return { wordList, currentIndex, currentWord, fetchWords };
 });
