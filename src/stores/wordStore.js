@@ -10,7 +10,7 @@ export const useWordStore = defineStore("word", () => {
   const fetchWords = async () => {
     try {
       const response = await axios.get(
-        "http://192.168.68.129:8080/api/v1/getChineseWord"
+        "https://inappropriate-bobbie-developtogether-38ecbb17.koyeb.app/api/v1/getChineseWord"
       );
       wordList.value = response.data.map((item) => ({
         chinese: item.question,
