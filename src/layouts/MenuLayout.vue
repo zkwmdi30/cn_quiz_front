@@ -1,8 +1,5 @@
 <template>
   <div class="menu-layout">
-    <nav>
-      <!-- Add your menu items here -->
-    </nav>
     <router-view />
   </div>
 </template>
@@ -11,6 +8,14 @@
 
 <style scoped>
 .menu-layout {
-  /* Add your menu layout styles here */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 </style>

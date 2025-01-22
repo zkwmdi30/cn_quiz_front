@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import QuizLayout from "@/layouts/QuizLayout.vue";
+import WordLayout from "@/layouts/WordLayout.vue";
 import MenuLayout from "@/layouts/MenuLayout.vue";
 
 const routes = [
   {
     path: "/",
-    component: QuizLayout,
+    component: MenuLayout,
     children: [
       {
         path: "",
@@ -15,13 +15,13 @@ const routes = [
     ],
   },
   {
-    path: "/about",
-    component: MenuLayout,
+    path: "/word",
+    component: WordLayout,
     children: [
       {
         path: "",
-        name: "about",
-        component: () => import("../views/AboutView.vue"),
+        name: "word",
+        component: () => import("../components/WordMain.vue"),
       },
     ],
   },
