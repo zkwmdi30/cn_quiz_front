@@ -28,10 +28,14 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount } from "vue";
 import { useWordStore } from "@/stores/wordStore";
+import { useQuizStore } from "@/stores/quizStore";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const store = useWordStore();
+const quizStore = useQuizStore();
 const selectedAnswer = ref("");
 const isCorrect = ref(false);
 const loading = ref(true);
@@ -57,9 +61,21 @@ const checkAnswer = (selected) => {
   }
 };
 
+// 라우터 가드 대신 onMounted에서 체크
 onMounted(async () => {
-  await store.fetchWords();
+  const quizParam = router.currentRoute.value.query.quiz;
+  if (!quizParam) {
+    router.push("/"); // 쿼리 파라미터가 없으면 메인으로 리다이렉트
+    return;
+  }
+
+  quizStore.selectQuiz(quizParam);
+  await store.fetchWords(quizParam);
   loading.value = false;
+});
+
+onBeforeUnmount(() => {
+  store.resetStore();
 });
 </script>
 

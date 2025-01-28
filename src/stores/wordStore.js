@@ -7,10 +7,11 @@ export const useWordStore = defineStore("word", () => {
   const currentIndex = ref(0);
   const currentWord = computed(() => wordList.value[currentIndex.value]);
 
-  const fetchWords = async () => {
+  const fetchWords = async (fileId) => {
+    wordList.value = [];
     try {
       const response = await axios.get(
-        "https://inappropriate-bobbie-developtogether-38ecbb17.koyeb.app/api/v1/getChineseWord"
+        `https://inappropriate-bobbie-developtogether-38ecbb17.koyeb.app/api/v1/file/${fileId}`
       );
       wordList.value = response.data.map((item) => ({
         chinese: item.question,
@@ -23,8 +24,13 @@ export const useWordStore = defineStore("word", () => {
     }
   };
 
+  const resetStore = () => {
+    wordList.value = [];
+    currentIndex.value = 0;
+  };
+
   // Fetch words when the store is initialized
   // fetchWords();
 
-  return { wordList, currentIndex, currentWord, fetchWords };
+  return { wordList, currentIndex, currentWord, fetchWords, resetStore };
 });

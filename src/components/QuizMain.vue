@@ -26,8 +26,12 @@ const loading = ref(true);
 const quizList = computed(() => quizStore.quizList);
 
 const handleQuizSelect = (quiz) => {
-  quizStore.selectQuiz(quiz);
-  router.push("/word");
+  const formattedQuiz = formatQuizName(quiz);
+  quizStore.selectQuiz(formattedQuiz);
+  router.push({
+    path: "/word",
+    query: { quiz: formattedQuiz },
+  });
 };
 
 // 퀴즈 이름 포맷팅 (.json 제거)

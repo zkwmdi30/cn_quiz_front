@@ -10,7 +10,7 @@ export const useQuizStore = defineStore("quiz", () => {
   const fetchQuizList = async () => {
     try {
       const response = await axios.get(
-        "https://inappropriate-bobbie-developtogether-38ecbb17.koyeb.app/api/v1/getChineseQuizList"
+        "https://inappropriate-bobbie-developtogether-38ecbb17.koyeb.app/api/v1/quizzes"
       );
       quizList.value = response.data.fileNames;
       fileCount.value = response.data.fileCount;
