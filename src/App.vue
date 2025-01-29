@@ -1,6 +1,13 @@
 <template>
-  <router-view />
+  <div class="app-container">
+    <ASCIIArt />
+    <router-view />
+  </div>
 </template>
+
+<script setup>
+import ASCIIArt from "./ASCIIArt.vue";
+</script>
 
 <style scoped>
 .app-container {
