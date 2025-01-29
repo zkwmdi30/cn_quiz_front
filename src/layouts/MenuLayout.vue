@@ -11,11 +11,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  width: 100%;
   height: 100vh;
-  width: 100vw;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  overflow-y: auto; /* 스크롤 허용 */
+  overflow-x: hidden;
 }
 </style>

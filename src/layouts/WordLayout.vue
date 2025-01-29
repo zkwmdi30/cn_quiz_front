@@ -16,10 +16,11 @@ import ProgressBar from "@/components/ProgressBar.vue";
   align-items: center;
   justify-content: center;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
   /* Add any additional quiz layout styles here */
 }
 </style>

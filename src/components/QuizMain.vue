@@ -68,14 +68,19 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  max-width: 600px;
+  max-width: 400px;
   margin: 0 auto;
 }
 
-/* 최상위 레이아웃에 배경색 적용 */
+/* body와 #app에 overflow-x: hidden 추가 */
 :global(body),
 :global(#app) {
   background-color: #f5f6fa;
+  overflow-x: hidden;
+  overflow-y: hidden;
+
+  margin: 0;
+  padding: 0;
 }
 
 .quiz-grid {
@@ -83,9 +88,7 @@ onUnmounted(() => {
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
   max-width: 100%;
-  height: calc(100vh - 100px);
-  padding-bottom: 60px; /* 하단 여백 추가하여 아래 항목이 살짝 보이게 */
-  /* margin-bottom: 20px; */
+  padding-bottom: 60px;
 }
 
 .quiz-item {
@@ -93,10 +96,10 @@ onUnmounted(() => {
   border-radius: 20px;
   padding: 24px;
   text-align: center;
-  font-size: min(24px, 6vw);
+  font-size: min(15px, 6vw);
   cursor: pointer;
   height: calc(
-    (100vh - 140px) / 2.3
+    (100vh - 200px) / 2.3
   ); /* 2.3으로 나누어 아래 항목이 살짝 보이게 */
   display: flex;
   align-items: center;
@@ -129,7 +132,6 @@ onUnmounted(() => {
 .viewport-size {
   position: fixed;
   top: 10px;
-  right: 10px;
   background-color: rgba(0, 0, 0, 0.7);
   color: white;
   padding: 5px 10px;
