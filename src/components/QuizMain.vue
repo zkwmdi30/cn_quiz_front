@@ -1,5 +1,8 @@
 <template>
   <div class="quiz-container">
+    <!-- 뷰포트 크기 표시 추가 -->
+    <div class="viewport-size">{{ viewportSize }}</div>
+
     <div v-if="loading" class="loading">Loading...</div>
     <div v-else class="quiz-grid">
       <div
@@ -16,7 +19,7 @@
 
 <script setup>
 import { useQuizStore } from "@/stores/quizStore";
-import { computed, ref, onMounted } from "vue";
+import { computed, ref, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
@@ -39,9 +42,23 @@ const formatQuizName = (fileName) => {
   return fileName.replace(".json", "");
 };
 
+// 뷰포트 크기 상태 추가
+const viewportSize = ref(`${window.innerWidth}px × ${window.innerHeight}px`);
+
+// 리사이즈 이벤트 핸들러
+const updateViewportSize = () => {
+  viewportSize.value = `${window.innerWidth}px × ${window.innerHeight}px`;
+};
+
 onMounted(async () => {
   await quizStore.fetchQuizList();
   loading.value = false;
+  window.addEventListener("resize", updateViewportSize);
+});
+
+// 컴포넌트 언마운트 시 이벤트 리스너 제거
+onUnmounted(() => {
+  window.removeEventListener("resize", updateViewportSize);
 });
 </script>
 
@@ -107,5 +124,17 @@ onMounted(async () => {
   height: 100%;
   background-color: rgba(255, 255, 255, 0.9);
   z-index: 1000;
+}
+
+.viewport-size {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 1001;
 }
 </style>
