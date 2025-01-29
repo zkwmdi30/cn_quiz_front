@@ -13,7 +13,6 @@ Y8,    "88,,8P  88        88  88   ,88"
 `);
 
 onMounted(() => {
-  console.log("ASCII 아트가 로드되었습니다:");
   console.log(asciiArt.value);
 });
 </script>
