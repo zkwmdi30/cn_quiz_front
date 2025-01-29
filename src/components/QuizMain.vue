@@ -68,7 +68,7 @@ onUnmounted(() => {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto;
 }
 

@@ -83,7 +83,7 @@ onBeforeUnmount(() => {
 .quiz-container {
   width: 100%;
   height: 100vh; /* 전체 높이로 수정 */
-  max-width: 400px;
+  max-width: 600px;
   margin: 0 auto; /* 중앙 정렬 */
   display: flex;
   flex-direction: column;
