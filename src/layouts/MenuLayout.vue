@@ -12,7 +12,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100vh;
+  height: calc(var(--vh) * 100);
   padding: 0;
   margin: 0;
   box-sizing: border-box;

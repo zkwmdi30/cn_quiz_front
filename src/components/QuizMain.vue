@@ -100,7 +100,7 @@ onUnmounted(() => {
   font-size: min(15px, 6vw);
   cursor: pointer;
   height: calc(
-    (100vh - 200px) / 2.3
+    calc(var(--vh) * 100 - 200px) / 2.3
   ); /* 2.3으로 나누어 아래 항목이 살짝 보이게 */
   display: flex;
   align-items: center;

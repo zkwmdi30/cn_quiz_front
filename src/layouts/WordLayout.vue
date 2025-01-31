@@ -15,7 +15,7 @@ import ProgressBar from "@/components/ProgressBar.vue";
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: calc(var(--vh) * 100);
   width: 100%;
   padding: 0;
   margin: 0;
