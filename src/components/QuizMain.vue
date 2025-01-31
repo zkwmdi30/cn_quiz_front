@@ -52,6 +52,7 @@ const updateViewportSize = () => {
 
 onMounted(async () => {
   await quizStore.fetchQuizList();
+  console.log("quizStore.quizList", quizStore.quizList.length);
   loading.value = false;
   window.addEventListener("resize", updateViewportSize);
 });
