@@ -1,7 +1,7 @@
 <template>
   <div class="quiz-container">
     <!-- 뷰포트 크기 표시 추가 -->
-    <div class="viewport-size">{{ viewportSize }}</div>
+    <!-- <div class="viewport-size">{{ viewportSize }}</div> -->
 
     <div v-if="loading" class="loading">Loading...</div>
     <div v-else class="quiz-grid">
@@ -52,7 +52,7 @@ const updateViewportSize = () => {
 
 onMounted(async () => {
   await quizStore.fetchQuizList();
-  console.log("quizStore.quizList", quizStore.quizList.length);
+  // console.log("quizStore.quizList", quizStore.quizList.length);
   loading.value = false;
   window.addEventListener("resize", updateViewportSize);
 });

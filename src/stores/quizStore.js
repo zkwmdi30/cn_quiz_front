@@ -8,12 +8,12 @@ export const useQuizStore = defineStore("quiz", () => {
   const fileCount = ref(0);
 
   const fetchQuizList = async () => {
-    console.log("fetchQuizList");
+    // console.log("fetchQuizList");
     try {
       const response = await axios.get(
         "https://inappropriate-bobbie-developtogether-38ecbb17.koyeb.app/api/v1/quizzes"
       );
-      console.log("response", response);
+      // console.log("response", response);
       quizList.value = response.data.fileNames;
       fileCount.value = response.data.fileCount;
     } catch (error) {
